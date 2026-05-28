@@ -82,11 +82,9 @@ export const StepSummary = () => {
         </div>
 
         <div className="mt-8 pt-4 flex justify-center">
-          <Link href="/futuro">
-            <a className="group flex items-center text-sm text-neutral-500 hover:text-neutral-300 transition-colors">
+          <Link href="/futuro" className="group flex items-center text-sm text-neutral-500 hover:text-neutral-300 transition-colors">
               Como isso afeta meu futuro?
               <ArrowRight size={14} className="ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-            </a>
           </Link>
         </div>
       </div>

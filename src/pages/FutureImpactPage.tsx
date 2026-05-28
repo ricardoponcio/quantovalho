@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { FutureImpactChart } from '../features/future/FutureImpactChart';
 import { FutureImpactSummary } from '../features/future/FutureImpactSummary';
+import { PurchasingPowerComparison } from '../components/PurchasingPowerComparison';
 import { formatCurrency } from '../lib/utils';
 
 export const FutureImpactPage = () => {
@@ -31,6 +32,19 @@ export const FutureImpactPage = () => {
     }
     return Math.round(acc);
   }, [monthlyCouldAccumulate, years]);
+
+  const valueToCompare = useMemo(() => {
+    let accumulatedWill = 0;
+    let accumulatedGov = 0;
+    const monthlyInterestRate = withInterest ? 0.08 / 12 : 0;
+
+    for (let i = 0; i < years * 12; i++) {
+      accumulatedWill = (accumulatedWill + monthlyWillAccumulate) * (1 + monthlyInterestRate);
+      accumulatedGov = (accumulatedGov + monthlyGovernment) * (1 + monthlyInterestRate);
+    }
+
+    return Math.abs(Math.round(accumulatedGov) - Math.round(accumulatedWill));
+  }, [monthlyWillAccumulate, monthlyGovernment, withInterest, years]);
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white p-6 md:p-12 overflow-y-auto">
@@ -131,6 +145,8 @@ export const FutureImpactPage = () => {
           withInterest={withInterest}
           years={years}
         />
+
+        <PurchasingPowerComparison value={valueToCompare} />
       </div>
     </div>
   );

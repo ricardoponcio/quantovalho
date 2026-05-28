@@ -1,16 +1,48 @@
 {
   "irpf_2024": [
-    { "max": 2259.20, "aliquota": 0, "deducao": 0 },
-    { "max": 2826.65, "aliquota": 0.075, "deducao": 169.44 },
-    { "max": 3751.05, "aliquota": 0.15, "deducao": 381.44 },
-    { "max": 4664.68, "aliquota": 0.225, "deducao": 662.77 },
-    { "max": null, "aliquota": 0.275, "deducao": 896.00 }
+    {
+      "max": 2259.20,
+      "aliquota": 0,
+      "deducao": 0
+    },
+    {
+      "max": 2826.65,
+      "aliquota": 0.075,
+      "deducao": 169.44
+    },
+    {
+      "max": 3751.05,
+      "aliquota": 0.15,
+      "deducao": 381.44
+    },
+    {
+      "max": 4664.68,
+      "aliquota": 0.225,
+      "deducao": 662.77
+    },
+    {
+      "max": null,
+      "aliquota": 0.275,
+      "deducao": 896.00
+    }
   ],
   "inss_2024": [
-    { "max": 1412.00, "aliquota": 0.075 },
-    { "max": 2666.68, "aliquota": 0.09 },
-    { "max": 4000.03, "aliquota": 0.12 },
-    { "max": 7786.02, "aliquota": 0.14 }
+    {
+      "max": 1412.00,
+      "aliquota": 0.075
+    },
+    {
+      "max": 2666.68,
+      "aliquota": 0.09
+    },
+    {
+      "max": 4000.03,
+      "aliquota": 0.12
+    },
+    {
+      "max": 7786.02,
+      "aliquota": 0.14
+    }
   ],
   "encargos_empresa_clt": {
     "fgts": 0.08,
@@ -22,14 +54,175 @@
     "fgts_provisoes": 0.0155
   },
   "medias_estaduais": {
-    "SP": { "ipva": 0.04, "ipva_eletrico": 0.02, "iptu_medio_anual": 2000, "carga_indireta_consumo": 0.35 },
-    "RJ": { "ipva": 0.04, "ipva_eletrico": 0.015, "iptu_medio_anual": 1800, "carga_indireta_consumo": 0.36 },
-    "MG": { "ipva": 0.04, "ipva_eletrico": 0.04, "iptu_medio_anual": 1500, "carga_indireta_consumo": 0.34 },
-    "RS": { "ipva": 0.03, "iptu_medio_anual": 1700, "carga_indireta_consumo": 0.33 },
-    "PR": { "ipva": 0.035, "ipva_eletrico": 0.0, "iptu_medio_anual": 1600, "iptu_max_base": 300000, "carga_indireta_consumo": 0.32 },
-    "SC": { "ipva": 0.02, "iptu_medio_anual": 1400, "carga_indireta_consumo": 0.31 },
-    "BA": { "ipva": 0.025, "iptu_medio_anual": 1200, "carga_indireta_consumo": 0.36 },
-    "DEFAULT": { "ipva": 0.03, "iptu_medio_anual": 1500, "carga_indireta_consumo": 0.34 }
+    "SP": {
+      "ipva": 0.04,
+      "ipva_eletrico": 0.04,
+      "iptu_medio_anual": 2000,
+      "carga_indireta_consumo": 0.35
+    },
+    "RJ": {
+      "ipva": 0.04,
+      "ipva_eletrico": 0.005,
+      "iptu_medio_anual": 1800,
+      "carga_indireta_consumo": 0.36
+    },
+    "MG": {
+      "ipva": 0.04,
+      "ipva_eletrico": 0.04,
+      "iptu_medio_anual": 1500,
+      "carga_indireta_consumo": 0.34
+    },
+    "RS": {
+      "ipva": 0.03,
+      "ipva_eletrico": 0.0,
+      "iptu_medio_anual": 1700,
+      "carga_indireta_consumo": 0.33
+    },
+    "PR": {
+      "ipva": 0.019,
+      "ipva_eletrico": 0.0,
+      "iptu_medio_anual": 1600,
+      "iptu_max_base": 300000,
+      "carga_indireta_consumo": 0.32
+    },
+    "SC": {
+      "ipva": 0.02,
+      "ipva_eletrico": 0.02,
+      "iptu_medio_anual": 1400,
+      "carga_indireta_consumo": 0.31
+    },
+    "BA": {
+      "ipva": 0.025,
+      "ipva_eletrico": 0.025,
+      "iptu_medio_anual": 1200,
+      "carga_indireta_consumo": 0.36
+    },
+    "DF": {
+      "ipva": 0.03,
+      "ipva_eletrico": 0.0,
+      "iptu_medio_anual": 1500,
+      "carga_indireta_consumo": 0.34
+    },
+    "PE": {
+      "ipva": 0.024,
+      "ipva_eletrico": 0.0,
+      "iptu_medio_anual": 1300,
+      "carga_indireta_consumo": 0.35
+    },
+    "CE": {
+      "ipva": 0.03,
+      "ipva_eletrico": 0.03,
+      "iptu_medio_anual": 1300,
+      "carga_indireta_consumo": 0.35
+    },
+    "GO": {
+      "ipva": 0.03,
+      "ipva_eletrico": 0.03,
+      "iptu_medio_anual": 1400,
+      "carga_indireta_consumo": 0.34
+    },
+    "ES": {
+      "ipva": 0.02,
+      "ipva_eletrico": 0.02,
+      "iptu_medio_anual": 1400,
+      "carga_indireta_consumo": 0.35
+    },
+    "MA": {
+      "ipva": 0.03,
+      "ipva_eletrico": 0.03,
+      "iptu_medio_anual": 1200,
+      "carga_indireta_consumo": 0.36
+    },
+    "PB": {
+      "ipva": 0.025,
+      "ipva_eletrico": 0.0,
+      "iptu_medio_anual": 1200,
+      "carga_indireta_consumo": 0.36
+    },
+    "RN": {
+      "ipva": 0.03,
+      "ipva_eletrico": 0.0,
+      "iptu_medio_anual": 1200,
+      "carga_indireta_consumo": 0.36
+    },
+    "AL": {
+      "ipva": 0.03,
+      "ipva_eletrico": 0.03,
+      "iptu_medio_anual": 1200,
+      "carga_indireta_consumo": 0.36
+    },
+    "SE": {
+      "ipva": 0.025,
+      "ipva_eletrico": 0.025,
+      "iptu_medio_anual": 1200,
+      "carga_indireta_consumo": 0.36
+    },
+    "MS": {
+      "ipva": 0.03,
+      "ipva_eletrico": 0.009,
+      "iptu_medio_anual": 1300,
+      "carga_indireta_consumo": 0.35
+    },
+    "MT": {
+      "ipva": 0.03,
+      "ipva_eletrico": 0.03,
+      "iptu_medio_anual": 1300,
+      "carga_indireta_consumo": 0.35
+    },
+    "PI": {
+      "ipva": 0.025,
+      "ipva_eletrico": 0.01,
+      "iptu_medio_anual": 1200,
+      "carga_indireta_consumo": 0.35
+    },
+    "AM": {
+      "ipva": 0.015,
+      "ipva_eletrico": 0.015,
+      "iptu_medio_anual": 1500,
+      "carga_indireta_consumo": 0.34
+    },
+    "AC": {
+      "ipva": 0.02,
+      "ipva_eletrico": 0.0,
+      "iptu_medio_anual": 1500,
+      "carga_indireta_consumo": 0.34
+    },
+    "AP": {
+      "ipva": 0.03,
+      "ipva_eletrico": 0.0,
+      "iptu_medio_anual": 1500,
+      "carga_indireta_consumo": 0.34
+    },
+    "PA": {
+      "ipva": 0.025,
+      "ipva_eletrico": 0.025,
+      "iptu_medio_anual": 1500,
+      "carga_indireta_consumo": 0.34
+    },
+    "RO": {
+      "ipva": 0.03,
+      "ipva_eletrico": 0.03,
+      "iptu_medio_anual": 1500,
+      "carga_indireta_consumo": 0.34
+    },
+    "RR": {
+      "ipva": 0.03,
+      "ipva_eletrico": 0.03,
+      "iptu_medio_anual": 1500,
+      "carga_indireta_consumo": 0.34
+    },
+    "TO": {
+      "ipva": 0.02,
+      "ipva_eletrico": 0.0,
+      "iptu_medio_anual": 1500,
+      "carga_indireta_consumo": 0.34
+    },
+    "DEFAULT": {
+      "ipva": 0.03,
+      "ipva_eletrico": 0.03,
+      "iptu_medio_anual": 1500,
+      "carga_indireta_consumo": 0.34
+    }
   },
   "impostos_consumo_detalhado": {
     "icms_medio": 0.18,
@@ -38,5 +231,43 @@
   },
   "pj_simples": {
     "anexo_iii": 0.06
-  }
+  },
+  "comparativos": [
+    {
+      "id": "carro_popular",
+      "nome": "Carros Populares",
+      "valor": 70000,
+      "icon": "Car"
+    },
+    {
+      "id": "iphone",
+      "nome": "iPhones",
+      "valor": 7000,
+      "icon": "Smartphone"
+    },
+    {
+      "id": "viagem",
+      "nome": "Viagens p/ Fora",
+      "valor": 15000,
+      "icon": "Plane"
+    },
+    {
+      "id": "ps5",
+      "nome": "PlayStations 5",
+      "valor": 4000,
+      "icon": "Gamepad2"
+    },
+    {
+      "id": "cafe",
+      "nome": "Cafés Padoca",
+      "valor": 5,
+      "icon": "Coffee"
+    },
+    {
+      "id": "salario_minimo",
+      "nome": "Salários Mínimos",
+      "valor": 1621,
+      "icon": "Wallet"
+    }
+  ]
 }
