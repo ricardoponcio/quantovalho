@@ -37,28 +37,28 @@ export const FutureImpactSummary = ({
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div className="bg-neutral-900 border border-neutral-800 p-6 rounded-2xl">
-        <div className="w-3 h-3 rounded-full bg-blue-500 mb-4" />
-        <h3 className="text-neutral-400 font-medium mb-1">Poderia Acumular</h3>
+        <div className="w-3 h-3 rounded-full bg-red-500 mb-4" />
+        <h3 className="text-neutral-400 font-medium mb-1">Fica para o Estado</h3>
         <div className="text-2xl font-bold text-white">
-          {formatCurrency(finalValues.could)}
+          {formatCurrency(finalValues.gov)}
         </div>
-        <p className="text-xs text-neutral-500 mt-2">Sem nenhum imposto</p>
+        <p className="text-xs text-neutral-500 mt-2">Impostos pagos</p>
       </div>
       <div className="bg-neutral-900 border border-neutral-800 p-6 rounded-2xl">
         <div className="w-3 h-3 rounded-full bg-green-500 mb-4" />
-        <h3 className="text-neutral-400 font-medium mb-1">Você Acumula</h3>
+        <h3 className="text-neutral-400 font-medium mb-1">De fato é seu</h3>
         <div className="text-2xl font-bold text-white">
           {formatCurrency(finalValues.will)}
         </div>
         <p className="text-xs text-neutral-500 mt-2">Sua parte do esforço</p>
       </div>
       <div className="bg-neutral-900 border border-neutral-800 p-6 rounded-2xl">
-        <div className="w-3 h-3 rounded-full bg-red-500 mb-4" />
-        <h3 className="text-neutral-400 font-medium mb-1">Governo Acumula</h3>
+        <div className="w-3 h-3 rounded-full bg-blue-500 mb-4" />
+        <h3 className="text-neutral-400 font-medium mb-1">Deveria ser seu</h3>
         <div className="text-2xl font-bold text-white">
-          {formatCurrency(finalValues.gov)}
+          {formatCurrency(finalValues.could)}
         </div>
-        <p className="text-xs text-neutral-500 mt-2">Impostos pagos</p>
+        <p className="text-xs text-neutral-500 mt-2">Sem nenhum imposto</p>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { formatCurrency } from '../../lib/utils';
 
 interface FutureImpactChartProps {
@@ -12,10 +12,13 @@ interface FutureImpactChartProps {
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
+    const order = ['Fica para o Estado', 'Deveria ser seu', 'De fato é seu'];
+    const orderedPayload = order.map(key => payload.find((p: any) => p.name === key)).filter(Boolean);
+
     return (
       <div className="bg-neutral-900 border border-neutral-800 p-4 rounded-xl shadow-xl">
         <p className="text-white font-medium mb-2">{label}</p>
-        {payload.map((entry: any, index: number) => (
+        {orderedPayload.map((entry: any, index: number) => (
           <div key={index} className="flex items-center gap-2 text-sm mb-1">
             <div className="w-3 h-3 rounded-full" style={{ backgroundColor: entry.color }} />
             <span className="text-neutral-400">{entry.name}:</span>
@@ -47,9 +50,9 @@ export const FutureImpactChart = ({
 
     chartData.push({
       year: 'Hoje',
-      'Poderia Acumular': 0,
-      'Você Acumula': 0,
-      'Governo Acumula': 0,
+      'Deveria ser seu': 0,
+      'De fato é seu': 0,
+      'Fica para o Estado': 0,
     });
 
     for (let year = 1; year <= years; year++) {
@@ -61,28 +64,34 @@ export const FutureImpactChart = ({
 
       chartData.push({
         year: `Ano ${year}`,
-        'Poderia Acumular': Math.round(accumulatedCould),
-        'Você Acumula': Math.round(accumulatedWill),
-        'Governo Acumula': Math.round(accumulatedGov),
+        'Deveria ser seu': Math.round(accumulatedCould),
+        'De fato é seu': Math.round(accumulatedWill),
+        'Fica para o Estado': Math.round(accumulatedGov),
       });
     }
 
     return chartData;
   }, [withInterest, monthlyCouldAccumulate, monthlyWillAccumulate, monthlyGovernment]);
 
+  const legendPayload = [
+    { value: 'Fica para o Estado', type: 'circle', color: '#ef4444' },
+    { value: 'Deveria ser seu', type: 'circle', color: '#3b82f6' },
+    { value: 'De fato é seu', type: 'circle', color: '#22c55e' }
+  ];
+
   return (
     <div className="h-[400px] w-full">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data} margin={{ top: 20, right: 20, bottom: 5, left: 10 }}>
+        <AreaChart data={data} margin={{ top: 20, right: 20, bottom: 5, left: 10 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
-          <XAxis 
-            dataKey="year" 
-            stroke="#666" 
+          <XAxis
+            dataKey="year"
+            stroke="#666"
             tick={{ fill: '#666' }}
             tickLine={false}
             axisLine={false}
           />
-          <YAxis 
+          <YAxis
             width={80}
             domain={[0, maxDomainValue]}
             stroke="#666"
@@ -92,32 +101,34 @@ export const FutureImpactChart = ({
             tickFormatter={(value) => `R$ ${(value / 1000).toFixed(0)}k`}
           />
           <Tooltip content={<CustomTooltip />} />
-          <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px' }} />
-          <Line 
+          <Legend payload={legendPayload} wrapperStyle={{ paddingTop: '20px' }} />
+          <Area 
             type="monotone" 
-            dataKey="Poderia Acumular" 
-            stroke="#3b82f6" 
-            strokeWidth={3}
-            dot={false}
-            activeDot={{ r: 8 }}
-          />
-          <Line 
-            type="monotone" 
-            dataKey="Você Acumula" 
+            dataKey="De fato é seu" 
+            stackId="1"
             stroke="#22c55e" 
-            strokeWidth={3}
-            dot={false}
-            activeDot={{ r: 8 }}
+            fill="#22c55e" 
+            fillOpacity={0.6}
+            strokeWidth={2}
           />
-          <Line 
+          <Area 
             type="monotone" 
-            dataKey="Governo Acumula" 
+            dataKey="Fica para o Estado" 
+            stackId="1"
             stroke="#ef4444" 
-            strokeWidth={3}
-            dot={false}
-            activeDot={{ r: 8 }}
+            fill="#ef4444"
+            fillOpacity={0.6}
+            strokeWidth={2}
           />
-        </LineChart>
+          <Area
+            type="monotone"
+            dataKey="Deveria ser seu"
+            stroke="#3b82f6"
+            fill="none"
+            strokeWidth={3}
+            strokeDasharray="5 5"
+          />
+        </AreaChart>
       </ResponsiveContainer>
     </div>
   );
