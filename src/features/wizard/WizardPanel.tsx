@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, ArrowLeft, Download } from 'lucide-react';
 import { Link } from 'wouter';
 import { useWizardStore } from '../../store/wizardStore';
@@ -13,9 +13,20 @@ import { downloadReceiptAsPdf } from '../../utils/exportPdf';
 export const WizardPanel = () => {
   const { step, setStep } = useWizardStore();
   const [isExporting, setIsExporting] = useState(false);
+  const [showMobileHint, setShowMobileHint] = useState(false);
 
   const handleNext = () => setStep(step + 1);
   const handleBack = () => setStep(step - 1);
+
+  useEffect(() => {
+    if (step === 2) {
+      setShowMobileHint(true);
+      const timer = setTimeout(() => setShowMobileHint(false), 5000);
+      return () => clearTimeout(timer);
+    } else {
+      setShowMobileHint(false);
+    }
+  }, [step]);
 
   const handleDownload = async () => {
     setIsExporting(true);
@@ -33,10 +44,11 @@ export const WizardPanel = () => {
               QuantoValho?
             </h1>
           </div>
-          <Link href="/sobre">
-            <a className="text-xs text-neutral-500 hover:text-primary transition-colors cursor-pointer border border-neutral-800 rounded-full px-3 py-1 bg-neutral-900">
-              Como é calculado?
-            </a>
+          <Link 
+            href="/sobre" 
+            className="text-xs text-neutral-500 hover:text-primary transition-colors cursor-pointer border border-neutral-800 rounded-full px-3 py-1 bg-neutral-900"
+          >
+            Como é calculado?
           </Link>
         </div>
 
@@ -86,6 +98,19 @@ export const WizardPanel = () => {
           )}
         </div>
       </div>
+
+      <AnimatePresence>
+        {showMobileHint && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 bg-orange-500 text-white px-5 py-3 rounded-full text-sm font-bold shadow-xl shadow-orange-500/20 z-50 flex items-center gap-2 whitespace-nowrap"
+          >
+            👇 Veja o extrato lá embaixo!
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

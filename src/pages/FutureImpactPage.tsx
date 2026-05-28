@@ -5,12 +5,14 @@ import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { FutureImpactChart } from '../features/future/FutureImpactChart';
 import { FutureImpactSummary } from '../features/future/FutureImpactSummary';
+import { formatCurrency } from '../lib/utils';
 
 export const FutureImpactPage = () => {
   const [, setLocation] = useLocation();
   const { results, step } = useWizardStore();
   const [withInterest, setWithInterest] = useState(true);
   const [investPercent, setInvestPercent] = useState(10);
+  const [years, setYears] = useState(10);
 
   if (step === 1) {
     setLocation('/');
@@ -24,11 +26,11 @@ export const FutureImpactPage = () => {
   const maxDomainValue = useMemo(() => {
     let acc = 0;
     const rate = 0.08 / 12;
-    for (let i = 0; i < 10 * 12; i++) {
+    for (let i = 0; i < years * 12; i++) {
       acc = (acc + monthlyCouldAccumulate) * (1 + rate);
     }
     return Math.round(acc);
-  }, [monthlyCouldAccumulate]);
+  }, [monthlyCouldAccumulate, years]);
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white p-6 md:p-12 overflow-y-auto">
@@ -53,16 +55,32 @@ export const FutureImpactPage = () => {
         </motion.div>
 
         <div className="bg-neutral-900 border border-neutral-800 rounded-3xl p-6 md:p-8 mb-8">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-            <div>
-              <h2 className="text-2xl font-semibold mb-2">Projeção de 10 Anos</h2>
+          <div className="flex flex-col xl:flex-row justify-between items-center mb-8 gap-8">
+            <div className="text-center xl:text-left w-full xl:w-auto">
+              <h2 className="text-2xl font-semibold mb-2">Projeção de {years} Anos</h2>
               <p className="text-neutral-400">Investindo o valor mensalmente</p>
             </div>
             
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-              <div className="flex flex-col">
-                <div className="flex justify-between items-center mb-1">
-                  <label className="text-sm text-neutral-400">Poupando do Líquido</label>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full xl:w-auto bg-neutral-950/50 p-4 md:p-6 rounded-2xl border border-neutral-800">
+              <div className="flex flex-col w-full md:w-auto">
+                <div className="flex justify-between items-center gap-4 mb-1">
+                  <label className="text-sm text-neutral-400 whitespace-nowrap">Tempo (Anos)</label>
+                  <span className="text-sm font-medium text-white">{years}</span>
+                </div>
+                <input 
+                  type="range" 
+                  min="1" 
+                  max="40"
+                  step="1"
+                  value={years}
+                  onChange={(e) => setYears(Number(e.target.value))}
+                  className="w-full md:w-40 accent-orange-500 cursor-pointer"
+                />
+              </div>
+
+              <div className="flex flex-col w-full md:w-auto">
+                <div className="flex justify-between items-center gap-4 mb-1">
+                  <label className="text-sm text-neutral-400 whitespace-nowrap">Poupando Líquido</label>
                   <span className="text-sm font-medium text-white">{investPercent}%</span>
                 </div>
                 <input 
@@ -71,11 +89,14 @@ export const FutureImpactPage = () => {
                   max="100" 
                   value={investPercent}
                   onChange={(e) => setInvestPercent(Number(e.target.value))}
-                  className="w-48 accent-orange-500 cursor-pointer"
+                  className="w-full md:w-40 accent-orange-500 cursor-pointer"
                 />
+                <div className="text-xs text-neutral-500 text-right mt-1">
+                  = {formatCurrency((results.totalCompanyCost - results.totalTaxesMonthly) * (investPercent / 100))}/mês
+                </div>
               </div>
 
-              <label className="flex items-center cursor-pointer bg-neutral-800/50 p-2 rounded-xl">
+              <label className="flex items-center cursor-pointer bg-neutral-800/50 p-2 rounded-xl w-full md:w-auto justify-center">
                 <div className="relative">
                   <input
                     type="checkbox"
@@ -83,10 +104,10 @@ export const FutureImpactPage = () => {
                     checked={withInterest}
                     onChange={() => setWithInterest(!withInterest)}
                   />
-                  <div className={`block w-14 h-8 rounded-full transition-colors ${withInterest ? 'bg-orange-500' : 'bg-neutral-700'}`}></div>
-                  <div className={`absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform ${withInterest ? 'transform translate-x-6' : ''}`}></div>
+                  <div className={`block w-12 h-7 rounded-full transition-colors ${withInterest ? 'bg-orange-500' : 'bg-neutral-700'}`}></div>
+                  <div className={`absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition-transform ${withInterest ? 'transform translate-x-5' : ''}`}></div>
                 </div>
-                <div className="ml-3 font-medium">
+                <div className="ml-3 font-medium text-sm">
                   Com Juros (8% a.a.)
                 </div>
               </label>
@@ -99,6 +120,7 @@ export const FutureImpactPage = () => {
             monthlyGovernment={monthlyGovernment}
             withInterest={withInterest}
             maxDomainValue={maxDomainValue}
+            years={years}
           />
         </div>
 
@@ -107,6 +129,7 @@ export const FutureImpactPage = () => {
           monthlyWillAccumulate={monthlyWillAccumulate}
           monthlyGovernment={monthlyGovernment}
           withInterest={withInterest}
+          years={years}
         />
       </div>
     </div>

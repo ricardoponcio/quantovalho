@@ -6,13 +6,15 @@ interface FutureImpactSummaryProps {
   monthlyWillAccumulate: number;
   monthlyGovernment: number;
   withInterest: boolean;
+  years: number;
 }
 
 export const FutureImpactSummary = ({
   monthlyCouldAccumulate,
   monthlyWillAccumulate,
   monthlyGovernment,
-  withInterest
+  withInterest,
+  years
 }: FutureImpactSummaryProps) => {
 
   const finalValues = useMemo(() => {
@@ -21,7 +23,7 @@ export const FutureImpactSummary = ({
     let accumulatedGov = 0;
     const monthlyInterestRate = withInterest ? 0.08 / 12 : 0;
 
-    for (let i = 0; i < 10 * 12; i++) {
+    for (let i = 0; i < years * 12; i++) {
       accumulatedCould = (accumulatedCould + monthlyCouldAccumulate) * (1 + monthlyInterestRate);
       accumulatedWill = (accumulatedWill + monthlyWillAccumulate) * (1 + monthlyInterestRate);
       accumulatedGov = (accumulatedGov + monthlyGovernment) * (1 + monthlyInterestRate);
@@ -32,7 +34,7 @@ export const FutureImpactSummary = ({
       will: Math.round(accumulatedWill),
       gov: Math.round(accumulatedGov)
     };
-  }, [monthlyCouldAccumulate, monthlyWillAccumulate, monthlyGovernment, withInterest]);
+  }, [monthlyCouldAccumulate, monthlyWillAccumulate, monthlyGovernment, withInterest, years]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

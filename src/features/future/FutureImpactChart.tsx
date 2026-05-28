@@ -8,6 +8,7 @@ interface FutureImpactChartProps {
   monthlyGovernment: number;
   withInterest: boolean;
   maxDomainValue: number;
+  years: number;
 }
 
 const CustomTooltip = ({ active, payload, label }: any) => {
@@ -36,10 +37,10 @@ export const FutureImpactChart = ({
   monthlyWillAccumulate,
   monthlyGovernment,
   withInterest,
-  maxDomainValue
+  maxDomainValue,
+  years
 }: FutureImpactChartProps) => {
   const data = useMemo(() => {
-    const years = 10;
     const monthlyInterestRate = withInterest ? 0.08 / 12 : 0;
 
     let accumulatedCould = 0;
@@ -71,7 +72,7 @@ export const FutureImpactChart = ({
     }
 
     return chartData;
-  }, [withInterest, monthlyCouldAccumulate, monthlyWillAccumulate, monthlyGovernment]);
+  }, [withInterest, monthlyCouldAccumulate, monthlyWillAccumulate, monthlyGovernment, years]);
 
   const renderLegend = (props: any) => {
     const { payload } = props;
