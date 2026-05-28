@@ -73,11 +73,22 @@ export const FutureImpactChart = ({
     return chartData;
   }, [withInterest, monthlyCouldAccumulate, monthlyWillAccumulate, monthlyGovernment]);
 
-  const legendPayload = [
-    { value: 'Fica para o Estado', type: 'circle', color: '#ef4444' },
-    { value: 'Deveria ser seu', type: 'circle', color: '#3b82f6' },
-    { value: 'De fato é seu', type: 'circle', color: '#22c55e' }
-  ];
+  const renderLegend = (props: any) => {
+    const { payload } = props;
+    const order = ['Fica para o Estado', 'Deveria ser seu', 'De fato é seu'];
+    const orderedPayload = order.map(key => payload?.find((p: any) => p.value === key)).filter(Boolean);
+
+    return (
+      <ul className="flex justify-center flex-wrap gap-6 pt-5 text-sm text-neutral-400">
+        {orderedPayload.map((entry: any, index: number) => (
+          <li key={`item-${index}`} className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: entry.color }} />
+            <span>{entry.value}</span>
+          </li>
+        ))}
+      </ul>
+    );
+  };
 
   return (
     <div className="h-[400px] w-full">
@@ -101,7 +112,7 @@ export const FutureImpactChart = ({
             tickFormatter={(value) => `R$ ${(value / 1000).toFixed(0)}k`}
           />
           <Tooltip content={<CustomTooltip />} />
-          <Legend payload={legendPayload} wrapperStyle={{ paddingTop: '20px' }} />
+          <Legend content={renderLegend} />
           <Area 
             type="monotone" 
             dataKey="De fato é seu" 
