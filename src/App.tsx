@@ -2,6 +2,7 @@ import { Route, Switch } from 'wouter';
 import { WizardPanel } from './features/wizard/WizardPanel';
 import { ReceiptPanel } from './features/receipt/ReceiptPanel';
 import { AboutPage } from './pages/AboutPage';
+import { FutureImpactPage } from './pages/FutureImpactPage';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         </div>
       </Route>
       <Route path="/sobre" component={AboutPage} />
+      <Route path="/futuro" component={FutureImpactPage} />
     </Switch>
   );
 }
