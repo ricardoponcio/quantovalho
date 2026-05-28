@@ -9,8 +9,8 @@ export const ReceiptPanel = () => {
   const { step } = useWizardStore();
 
   return (
-    <div id="receipt-panel-capture" className="w-full md:w-1/2 p-8 md:p-16 bg-neutral-900 relative md:overflow-y-auto flex flex-col">
-      <div className="max-w-md w-full mx-auto my-auto space-y-6 py-12 md:py-8">
+    <div id="receipt-panel-capture" className="w-full md:w-1/2 p-6 md:p-16 bg-neutral-900 relative md:overflow-y-auto flex flex-col">
+      <div className="max-w-md w-full mx-auto my-auto space-y-6 py-8">
         
         <MonthlySummaryCard />
 

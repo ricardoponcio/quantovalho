@@ -18,16 +18,16 @@ export const StepSummary = () => {
         <h2 className="text-4xl font-semibold mb-2">O Extrato Real</h2>
         <p className="text-neutral-400 mb-8">Veja como a máquina pública divide com você o seu esforço.</p>
         
-        <div className="bg-neutral-900 p-6 rounded-2xl border border-neutral-800 mb-6">
-           <h3 className="text-xl font-medium mb-4">Carga Tributária Efetiva Anual</h3>
-           <div className="text-6xl font-bold text-red-500 mb-2">
+        <div className="bg-neutral-900 p-5 md:p-6 rounded-2xl border border-neutral-800 mb-6">
+           <h3 className="text-lg md:text-xl font-medium mb-4">Carga Tributária Efetiva Anual</h3>
+           <div className="text-5xl md:text-6xl font-bold text-red-500 mb-2">
              <NumberTicker value={results.effectiveTaxRate} />%
            </div>
            <p className="text-neutral-400">Do total de dinheiro gerado pelo seu trabalho (Custo Empresa), isso é o que vai embora em tributos de todas as formas.</p>
         </div>
 
-        <div className="bg-neutral-900 p-6 rounded-2xl border border-neutral-800 mb-6">
-          <h3 className="text-sm text-neutral-400 mb-4 uppercase tracking-wider font-medium">De onde vem esse valor? (Por Mês)</h3>
+        <div className="bg-neutral-900 p-5 md:p-6 rounded-2xl border border-neutral-800 mb-6">
+          <h3 className="text-xs md:text-sm text-neutral-400 mb-4 uppercase tracking-wider font-medium">De onde vem esse valor? (Por Mês)</h3>
           <div className="space-y-3 mb-4">
             <div className="flex justify-between items-center text-sm border-b border-neutral-800/50 pb-2">
               <div className="flex flex-col">
@@ -59,23 +59,23 @@ export const StepSummary = () => {
               </div>
             )}
           </div>
-          <div className="flex justify-between items-center text-lg pt-2 mt-2">
+          <div className="flex flex-col sm:flex-row justify-between sm:items-center text-lg pt-2 mt-2 gap-1">
             <span className="text-white font-semibold">Total Entregue por Mês</span>
             <span className="text-red-500 font-bold text-xl">R$ <NumberTicker value={results.totalTaxesMonthly} /></span>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-neutral-900 p-6 rounded-2xl border border-neutral-800 flex flex-col items-center justify-center text-center">
-            <h3 className="text-sm text-neutral-400 mb-2">Entregue por Mês</h3>
-            <div className="text-3xl font-bold text-red-400">
+        <div className="flex flex-col sm:grid sm:grid-cols-2 gap-4">
+          <div className="bg-neutral-900 p-5 md:p-6 rounded-2xl border border-neutral-800 flex flex-col items-center justify-center text-center">
+            <h3 className="text-xs md:text-sm text-neutral-400 mb-2">Entregue por Mês</h3>
+            <div className="text-2xl md:text-3xl font-bold text-red-400">
               <span className="text-sm font-normal text-neutral-500 mr-1">R$</span>
               <NumberTicker value={results.totalTaxesMonthly} />
             </div>
           </div>
-          <div className="bg-neutral-900 p-6 rounded-2xl border border-neutral-800 flex flex-col items-center justify-center text-center">
-            <h3 className="text-sm text-neutral-400 mb-2">Entregue por Ano</h3>
-            <div className="text-3xl font-bold text-red-400">
+          <div className="bg-neutral-900 p-5 md:p-6 rounded-2xl border border-neutral-800 flex flex-col items-center justify-center text-center">
+            <h3 className="text-xs md:text-sm text-neutral-400 mb-2">Entregue por Ano</h3>
+            <div className="text-2xl md:text-3xl font-bold text-red-400">
               <span className="text-sm font-normal text-neutral-500 mr-1">R$</span>
               <NumberTicker value={results.totalTaxesYearly} />
             </div>

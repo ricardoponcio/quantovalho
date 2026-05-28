@@ -5,7 +5,7 @@ interface ButtonProps extends ComponentProps<'button'> {
 }
 
 export const Button = ({ variant = 'primary', className = '', children, ...props }: ButtonProps) => {
-  const baseClasses = "flex items-center gap-2 px-8 py-4 font-semibold rounded-full transition-colors";
+  const baseClasses = "flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 font-semibold rounded-full transition-colors";
   
   const variants = {
     primary: "bg-primary text-white hover:bg-primary-light",
