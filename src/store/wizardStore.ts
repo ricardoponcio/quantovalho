@@ -18,7 +18,7 @@ interface WizardState {
   updateData: (data: Partial<Omit<WizardState, 'step' | 'results' | 'setStep' | 'updateData'>>) => void;
 }
 
-const defaultResults = calculateTaxes(0, 'SP', 0, false, false);
+
 
 export const useWizardStore = create<WizardState>((set) => ({
   step: 1,
