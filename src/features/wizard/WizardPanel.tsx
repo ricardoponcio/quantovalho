@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Download } from 'lucide-react';
 import { Link } from 'wouter';
 import { useWizardStore } from '../../store/wizardStore';
 import { StepIncome } from './steps/StepIncome';
@@ -7,12 +8,20 @@ import { StepAssets } from './steps/StepAssets';
 import { StepConsumption } from './steps/StepConsumption';
 import { StepSummary } from './steps/StepSummary';
 import { Button } from '../../components/ui/Button';
+import { downloadReceiptAsPdf } from '../../utils/exportPdf';
 
 export const WizardPanel = () => {
   const { step, setStep } = useWizardStore();
+  const [isExporting, setIsExporting] = useState(false);
 
   const handleNext = () => setStep(step + 1);
   const handleBack = () => setStep(step - 1);
+
+  const handleDownload = async () => {
+    setIsExporting(true);
+    await downloadReceiptAsPdf('app-container', 'quantovalho_extrato.pdf');
+    setIsExporting(false);
+  };
 
   return (
     <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col relative z-10 border-r border-neutral-800 md:overflow-y-auto">
@@ -55,12 +64,21 @@ export const WizardPanel = () => {
               Avançar <ArrowRight size={20} />
             </Button>
           ) : (
-            <Button 
-              variant="primary"
-              onClick={() => setStep(1)}
-            >
-              Recomeçar
-            </Button>
+            <div className="flex gap-4">
+              <Button 
+                variant="outline"
+                onClick={handleDownload}
+                disabled={isExporting}
+              >
+                <Download size={20} /> {isExporting ? 'Gerando...' : 'Baixar Extrato'}
+              </Button>
+              <Button 
+                variant="primary"
+                onClick={() => setStep(1)}
+              >
+                Recomeçar
+              </Button>
+            </div>
           )}
         </div>
       </div>

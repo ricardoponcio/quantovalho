@@ -7,7 +7,7 @@ export default function App() {
   return (
     <Switch>
       <Route path="/">
-        <div className="flex flex-col md:flex-row min-h-screen md:h-screen bg-neutral-950 text-white md:overflow-hidden">
+        <div id="app-container" className="flex flex-col md:flex-row min-h-screen md:h-screen bg-neutral-950 text-white md:overflow-hidden">
           <WizardPanel />
           <ReceiptPanel />
         </div>
