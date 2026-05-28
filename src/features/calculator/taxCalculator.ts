@@ -2,46 +2,9 @@ import { EmployeeTaxCalculator } from './classes/EmployeeTaxCalculator';
 import { CompanyTaxCalculator } from './classes/CompanyTaxCalculator';
 import { WealthTaxCalculator } from './classes/WealthTaxCalculator';
 import { ConsumptionTaxCalculator } from './classes/ConsumptionTaxCalculator';
+import type { TaxCalculationResult } from './types';
 
-export interface TaxCalculationResult {
-  grossSalary: number;
-  netSalary: number;
-  yearlyIpva: number;
-  yearlyIptu: number;
-  monthlyIndirectTaxes: number;
-  totalCompanyCost: number;
-  effectiveTaxRate: number;
-  
-  companyCostBreakdown: {
-    inssPatronal: { value: number; rate: number };
-    fgts: { value: number; rate: number };
-    sistemaS: { value: number; rate: number };
-    satRat: { value: number; rate: number };
-    provisao13: { value: number; rate: number };
-    provisaoFerias: { value: number; rate: number };
-    fgtsProvisoes: { value: number; rate: number };
-  };
-  
-  wealthTaxBreakdown: {
-    ipvaRate: number;
-    carValueUsed: number;
-    isCarValueEstimated: boolean;
-    iptuRate: number;
-    propertyValueUsed: number | null;
-    isPropertyValueEstimated: boolean;
-  };
 
-  employeeCostBreakdown: {
-    inss: { value: number; rangeName: string; rate: number };
-    irpf: { value: number; rangeName: string; rate: number };
-  };
-  
-  consumptionTaxBreakdown: {
-    icms: { value: number; rate: number };
-    pisCofins: { value: number; rate: number };
-    ipiIbpt: { value: number; rate: number };
-  };
-}
 
 export function calculateTaxes(
   grossSalary: number,
@@ -71,9 +34,18 @@ export function calculateTaxes(
 
   // 5. Total Anualizado e Carga Efetiva
   const totalIncomeYearly = companyCosts.totalCompanyCost * 12;
+  
+  // Impostos puros da empresa (Gov + FGTS), exclui 13º e Férias que são salário diferido.
+  const companyTaxes = 
+    companyCosts.inssPatronal.value + 
+    companyCosts.sistemaS.value + 
+    companyCosts.satRat.value + 
+    companyCosts.fgts.value + 
+    companyCosts.fgtsProvisoes.value;
+
   const totalTaxesYearly = 
     ((inssResult.value + irpfResult.value) * 12) + 
-    ((companyCosts.totalCompanyCost - grossSalary) * 12) + 
+    (companyTaxes * 12) + 
     wealthTaxes.yearlyIpva + 
     wealthTaxes.yearlyIptu + 
     (consumptionTaxes.monthlyIndirectTaxes * 12);
@@ -87,6 +59,8 @@ export function calculateTaxes(
     yearlyIptu: wealthTaxes.yearlyIptu,
     monthlyIndirectTaxes: consumptionTaxes.monthlyIndirectTaxes,
     totalCompanyCost: companyCosts.totalCompanyCost,
+    totalTaxesYearly,
+    totalTaxesMonthly: totalTaxesYearly / 12,
     effectiveTaxRate,
     
     companyCostBreakdown: {

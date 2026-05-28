@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { calculateTaxes, type TaxCalculationResult } from '../features/calculator/taxCalculator';
+import { calculateTaxes } from '../features/calculator/taxCalculator';
+import type { TaxCalculationResult } from '../features/calculator/types';
 
 interface WizardState {
   step: number;

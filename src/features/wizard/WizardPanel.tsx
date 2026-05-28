@@ -1,5 +1,6 @@
 import { AnimatePresence } from 'framer-motion';
 import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { Link } from 'wouter';
 import { useWizardStore } from '../../store/wizardStore';
 import { StepIncome } from './steps/StepIncome';
 import { StepAssets } from './steps/StepAssets';
@@ -14,11 +15,21 @@ export const WizardPanel = () => {
   const handleBack = () => setStep(step - 1);
 
   return (
-    <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col relative z-10 border-r border-neutral-800">
+    <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col relative z-10 border-r border-neutral-800 md:overflow-y-auto">
       <div className="w-full max-w-lg mx-auto my-auto py-12 md:py-8">
-        <h1 className="text-3xl font-bold mb-12 bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
-          QuantoValho
-        </h1>
+        <div className="flex items-center justify-between mb-12">
+          <div className="flex items-center gap-3">
+            <img src="/favicon.svg" alt="QuantoValho Logo" className="w-8 h-8" />
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
+              QuantoValho?
+            </h1>
+          </div>
+          <Link href="/sobre">
+            <a className="text-xs text-neutral-500 hover:text-primary transition-colors cursor-pointer border border-neutral-800 rounded-full px-3 py-1 bg-neutral-900">
+              Como é calculado?
+            </a>
+          </Link>
+        </div>
 
         <AnimatePresence mode="wait">
           {step === 1 && <StepIncome />}
